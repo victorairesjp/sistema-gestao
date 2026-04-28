@@ -20,7 +20,7 @@ public class Fornecedor {
     @Column(name = "nome_fantasia", nullable = false)
     private String nomeFantasia;
 
-    @Column(name = "cnpj", nullable = false, unique = true)
+    @Column(name = "cnpj", nullable = false, updatable = false, unique = true)
     private String cnpj;
 
     @Column(name = "email", nullable = false)
