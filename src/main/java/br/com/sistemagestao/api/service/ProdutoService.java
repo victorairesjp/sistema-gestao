@@ -1,10 +1,14 @@
 package br.com.sistemagestao.api.service;
 
-import org.springframework.stereotype.Service;
+import br.com.sistemagestao.api.dto.produto.ProdutoRequestDTO;
+import br.com.sistemagestao.api.dto.produto.ProdutoResponseDTO;
 
-@Service
-public class ProdutoService {
+import java.util.List;
 
-
-
+public interface ProdutoService {
+    ProdutoResponseDTO criarProduto(ProdutoRequestDTO dto);
+    List<ProdutoResponseDTO> listarTodosProdutos(ProdutoRequestDTO dto);
+    ProdutoResponseDTO buscarProdutoPorId(Long id);
+    ProdutoResponseDTO atualizarProdutoPorId(Long id, ProdutoRequestDTO dto);
+    void deletarProdutoPorId(Long id);
 }
