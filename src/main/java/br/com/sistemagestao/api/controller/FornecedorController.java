@@ -42,7 +42,7 @@ public class FornecedorController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarFornecedorPorId(@PathVariable Long id, @RequestBody Fornecedor fornecedorAtualizadoNoFront) {
-        fornecedorService.atualizarFornecedorPorId(id, fornecedorAtualizadoNoFront);
+    public void atualizarFornecedorPorId(@PathVariable Long id, @RequestBody Fornecedor fornecedorAttFront) {
+        fornecedorService.atualizarFornecedorPorId(id, fornecedorAttFront);
     }
 }

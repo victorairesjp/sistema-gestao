@@ -33,7 +33,7 @@ public class FornecedorService {
         fornecedorRepository.deleteById(id);
     }
 
-    public void atualizarFornecedorPorId(Long id, Fornecedor fornecedorAtualizadoNoFront) {
+    public void atualizarFornecedorPorId(Long id, Fornecedor fornecedorAttFront) {
         // 1 - Pegar o que existe
         Optional<Fornecedor> fornecedor = buscarFornecedorPorId(id);
 
@@ -45,10 +45,10 @@ public class FornecedorService {
         // 3 - Sobrescrever com a att
         Fornecedor fornecedorAtualizado = fornecedor.get();
 
-        fornecedorAtualizado.setNomeFantasia(fornecedorAtualizadoNoFront.getNomeFantasia());
-        fornecedorAtualizado.setEmail(fornecedorAtualizadoNoFront.getEmail());
-        fornecedorAtualizado.setTelefonePrincipal(fornecedorAtualizadoNoFront.getTelefonePrincipal());
-        fornecedorAtualizado.setTelefoneSecundario(fornecedorAtualizadoNoFront.getTelefoneSecundario());
+        fornecedorAtualizado.setNomeFantasia(fornecedorAttFront.getNomeFantasia());
+        fornecedorAtualizado.setEmail(fornecedorAttFront.getEmail());
+        fornecedorAtualizado.setTelefonePrincipal(fornecedorAttFront.getTelefonePrincipal());
+        fornecedorAtualizado.setTelefoneSecundario(fornecedorAttFront.getTelefoneSecundario());
 
         // 4 - Devolver atualizado para o DB
         fornecedorRepository.save(fornecedorAtualizado);

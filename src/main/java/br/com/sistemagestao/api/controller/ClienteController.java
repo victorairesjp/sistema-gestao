@@ -36,4 +36,15 @@ public class ClienteController {
         return clienteService.buscarClientePorId(id);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarPorId(@PathVariable Long id, @RequestBody Cliente clienteAttFront) {
+        clienteService.atualizarClientePorId(id, clienteAttFront);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarClientePorId(@PathVariable Long id) {
+        clienteService.deletarClientePorId(id);
+    }
 }
