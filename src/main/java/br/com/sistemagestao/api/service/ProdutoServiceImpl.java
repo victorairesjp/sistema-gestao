@@ -39,23 +39,48 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public List<ProdutoResponseDTO> listarTodosProdutos(ProdutoRequestDTO dto) {
-        return List.of();
+    public List<ProdutoResponseDTO> listarTodosProdutos() {
+        return produtoRepository.findAll()
+                .stream() // Varredura
+                .map(ProdutoMapper::toResponseDTO)
+                .toList();
     }
 
     @Override
     public ProdutoResponseDTO buscarProdutoPorId(Long id) {
-        return null;
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
+
+        return ProdutoMapper.toResponseDTO(produto);
     }
 
     @Override
     public ProdutoResponseDTO atualizarProdutoPorId(Long id, ProdutoRequestDTO dto) {
-        return null;
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
+
+        Fornecedor fornecedor = fornecedorRepository.findById(dto.fornecedorId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor não encontrado."));
+
+        produto.setNome(dto.nome());
+        produto.setDescricao(dto.descricao());
+        produto.setPreco(dto.preco());
+        produto.setQuantidadeEstoque(dto.quantidadeEstoque());
+        produto.setCategoria(dto.categoria());
+        produto.setFornecedor(fornecedor);
+
+        produtoRepository.save(produto);
+
+        return ProdutoMapper.toResponseDTO(produto);
+
     }
 
     @Override
     public void deletarProdutoPorId(Long id) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
 
+        produtoRepository.deleteById(id);
     }
 
 }
