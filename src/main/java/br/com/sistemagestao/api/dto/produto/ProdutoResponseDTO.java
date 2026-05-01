@@ -1,7 +1,6 @@
 package br.com.sistemagestao.api.dto.produto;
 
 import br.com.sistemagestao.api.enums.CategoriaProdutoEnum;
-
 import java.math.BigDecimal;
 
 public record ProdutoResponseDTO(

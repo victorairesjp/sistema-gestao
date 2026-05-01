@@ -1,48 +1,52 @@
 package br.com.sistemagestao.api.controller;
 
+import br.com.sistemagestao.api.dto.fornecedor.FornecedorRequestDTO;
+import br.com.sistemagestao.api.dto.fornecedor.FornecedorResponseDTO;
 import br.com.sistemagestao.api.model.Fornecedor;
 import br.com.sistemagestao.api.service.FornecedorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/fornecedores")
+@RequiredArgsConstructor
 public class FornecedorController {
 
-    @Autowired
-    FornecedorService fornecedorService;
+    private final FornecedorService fornecedorService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarFornecedor(@RequestBody Fornecedor fornecedor) {
-        fornecedorService.criarFornecedor(fornecedor);
+    public FornecedorResponseDTO criarFornecedor(@Valid @RequestBody FornecedorRequestDTO dto) {
+        return fornecedorService.criarFornecedor(dto);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Fornecedor> listarTodosFornecedores() {
+    public List<FornecedorResponseDTO> listarTodosFornecedores() {
         return fornecedorService.listarTodosFornecedores();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Fornecedor> buscarFornecedorPorId(@PathVariable Long id) {
+    public FornecedorResponseDTO buscarFornecedorPorId(@PathVariable Long id) {
         return fornecedorService.buscarFornecedorPorId(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FornecedorResponseDTO atualizarFornecedorPorId(@PathVariable Long id,
+                                                          @Valid @RequestBody FornecedorRequestDTO dto) {
+        return fornecedorService.atualizarFornecedorPorId(id, dto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletarFornecedorPorId(@PathVariable Long id) {
         fornecedorService.deletarFornecedorPorId(id);
-    }
-
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarFornecedorPorId(@PathVariable Long id, @RequestBody Fornecedor fornecedorAttFront) {
-        fornecedorService.atualizarFornecedorPorId(id, fornecedorAttFront);
     }
 }

@@ -42,7 +42,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     public List<ProdutoResponseDTO> listarTodosProdutos() {
         return produtoRepository.findAll()
                 .stream() // Varredura
-                .map(ProdutoMapper::toResponseDTO)
+                .map(ProdutoMapper::toResponseDTO) // Transforma em DTO
                 .toList();
     }
 
@@ -77,7 +77,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public void deletarProdutoPorId(Long id) {
-        Produto produto = produtoRepository.findById(id)
+        produtoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
 
         produtoRepository.deleteById(id);
