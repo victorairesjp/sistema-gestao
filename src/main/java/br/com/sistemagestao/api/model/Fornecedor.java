@@ -31,4 +31,8 @@ public class Fornecedor {
 
     @Column(name = "telefone_secundario")
     private String telefoneSecundario;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "fornecedor_id", nullable = false) // FK na tabela fornecedores
+    private Endereco endereco;
 }

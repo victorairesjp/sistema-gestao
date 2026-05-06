@@ -14,21 +14,21 @@ public class FornecedorMapper {
         fornecedor.setEmail(dto.email());
         fornecedor.setTelefonePrincipal(dto.telefonePrincipal());
         fornecedor.setTelefoneSecundario(dto.telefoneSecundario());
+        fornecedor.setEndereco(EnderecoMapper.toEntity(dto.endereco()));
 
         return fornecedor;
     }
 
 
     public static FornecedorResponseDTO toResponseDTO(Fornecedor fornecedor) {
-        FornecedorResponseDTO dto = new FornecedorResponseDTO(
+        return new FornecedorResponseDTO(
                 fornecedor.getId(),
                 fornecedor.getNomeFantasia(),
                 fornecedor.getCnpj(),
                 fornecedor.getEmail(),
                 fornecedor.getTelefonePrincipal(),
-                fornecedor.getTelefoneSecundario()
+                fornecedor.getTelefoneSecundario(),
+                EnderecoMapper.toResponseDTO(fornecedor.getEndereco())
         );
-
-        return dto;
     }
 }

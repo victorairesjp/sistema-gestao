@@ -3,6 +3,7 @@ package br.com.sistemagestao.api.service;
 import br.com.sistemagestao.api.dto.fornecedor.FornecedorRequestDTO;
 import br.com.sistemagestao.api.dto.fornecedor.FornecedorResponseDTO;
 import br.com.sistemagestao.api.mapper.FornecedorMapper;
+import br.com.sistemagestao.api.model.Endereco;
 import br.com.sistemagestao.api.model.Fornecedor;
 import br.com.sistemagestao.api.repository.FornecedorRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,17 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedor.setEmail(dto.email());
         fornecedor.setTelefonePrincipal(dto.telefonePrincipal());
         fornecedor.setTelefoneSecundario(dto.telefoneSecundario());
+
+        // Atualizar mantendo o ID
+        Endereco endereco = fornecedor.getEndereco();
+
+        endereco.setCep(dto.endereco().cep());
+        endereco.setLogradouro(dto.endereco().logradouro());
+        endereco.setNumero(dto.endereco().numero());
+        endereco.setComplemento(dto.endereco().complemento());
+        endereco.setBairro(dto.endereco().bairro());
+        endereco.setCidade(dto.endereco().cidade());
+        endereco.setUf(dto.endereco().uf());
 
         fornecedorRepository.save(fornecedor);
 

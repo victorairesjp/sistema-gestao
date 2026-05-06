@@ -5,6 +5,7 @@ import br.com.sistemagestao.api.dto.cliente.ClienteRequestDTO;
 import br.com.sistemagestao.api.dto.cliente.ClienteResponseDTO;
 import br.com.sistemagestao.api.mapper.ClienteMapper;
 import br.com.sistemagestao.api.model.Cliente;
+import br.com.sistemagestao.api.model.Endereco;
 import br.com.sistemagestao.api.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,10 +48,22 @@ public class ClienteServiceImpl implements ClienteService{
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado."));
 
-        cliente.setNome(dto.nome());
+        cliente.setNomeCompleto(dto.nomeCompleto());
         cliente.setCpf(dto.cpf());
         cliente.setEmail(dto.email());
         cliente.setTelefone(dto.telefone());
+        cliente.setDataNascimento(dto.dataNascimento());
+
+        // Atualiza os campos do Endereco que JÁ EXISTE (mantemos o mesmo id!)
+        Endereco endereco = cliente.getEndereco();
+
+        endereco.setCep(dto.endereco().cep());
+        endereco.setLogradouro(dto.endereco().logradouro());
+        endereco.setNumero(dto.endereco().numero());
+        endereco.setComplemento(dto.endereco().complemento());
+        endereco.setBairro(dto.endereco().bairro());
+        endereco.setCidade(dto.endereco().cidade());
+        endereco.setUf(dto.endereco().uf());
 
         clienteRepository.save(cliente);
 

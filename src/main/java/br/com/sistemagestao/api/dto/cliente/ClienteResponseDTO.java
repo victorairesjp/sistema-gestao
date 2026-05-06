@@ -10,5 +10,5 @@ public record ClienteResponseDTO(
         String email,
         String telefone,
         LocalDate dataNascimento,
-        EnderecoDTO endereco          // EnderecoDTO aninhado de novo!
+        EnderecoDTO endereco
 ) {}
